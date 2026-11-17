@@ -75,6 +75,8 @@ Com stack já definida no repositório, cada papel **documenta o vigente** e pod
 
 QA e Frontend não ficam limitados à visão do Dev: podem questionar e sugerir runners, frameworks ou recursos que impactem testes e UI, sempre como recomendação opcional.
 
+No setup, `frontend-devx` infere o perfil do produto (SaaS, vitrine, landing, etc.), conduz sabatina obrigatória e grava a skill local **sem** assumir PWA ou motion imersivo por padrão; a11y e i18n entram só se você confirmar. A skill do projeto exige fidelidade a Figma/HTML/imagem dentro do design system e checagem de componentes reutilizáveis.
+
 ## Esteira
 
 | Agente | Papel | Onde entra na esteira |
@@ -82,7 +84,7 @@ QA e Frontend não ficam limitados à visão do Dev: podem questionar e sugerir 
 | `po-devx` | Product Owner: discovery, spec, tickets e aceite | Discovery e UAT |
 | `qa-devx` | QA: pirâmide de testes, risco e exploração | Testes Red e QA exploratório |
 | `dev-devx` | Dev full stack: pattern mining e implementação | Implementação (DEV) |
-| `frontend-devx` | UI, PWA, responsividade fluida e motion 60fps | UI/PWA |
+| `frontend-devx` | UI sob medida ao arquétipo; PWA e motion imersivo só se o escopo fechar na sabatina | UI/PWA |
 
 Fluxo completo:
 
