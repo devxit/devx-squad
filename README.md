@@ -8,7 +8,7 @@ A skill `setup-devx` faz o onboarding completo do projeto, novo ou existente:
 
 1. Verifica se o pacote [mattpocock/skills](https://github.com/mattpocock/skills/tree/main) está no ambiente; se faltar, oferece `npx skills add mattpocock/skills -g -y`.
 2. Executa o fluxo de `setup-matt-pocock-skills` no repositório (`docs/agents/`, issue tracker, domínio). Se `docs/agents/` já existir, pergunta se pula ou refaz.
-3. Aciona **um por vez** as globais `po-devx` → `dev-devx` → `qa-devx` → `frontend-devx` para criar ou atualizar `.agents/skills/<project>-<papel>-devx/SKILL.md`.
+3. Aciona **um por vez** as globais `po-devx` → `dev-devx` → `frontend-devx` → `qa-devx` para criar ou atualizar `.agents/skills/<project>-<papel>-devx/SKILL.md` (QA por último para alinhar E2E/UI à camada Interface).
 
 ```bash
 npx skills add devxit/devx-squad --skill setup-devx -g -y
@@ -61,6 +61,19 @@ Exemplos: `.agents/skills/noah-po-devx/SKILL.md`, `.agents/skills/noah-qa-devx/S
 Essas skills globais existem só para o setup. Se `.agents/skills/<project>-<papel>-devx/SKILL.md` já existe e a global não foi chamada de forma explícita, ela é ignorada. O trabalho segue na skill local (`$<project>-po-devx`, `$<project>-qa-devx`, `$<project>-dev-devx` ou `$<project>-frontend-devx`).
 
 Se a global for chamada de propósito (`$po-devx`, `$qa-devx`, `$dev-devx` ou `$frontend-devx`) e a local já existir, ela não assume o papel. Oferece três caminhos, porque os requisitos do projeto podem ter mudado: recalibrar a skill local, gerar uma nova no lugar, ou manter a atual. Sem essa escolha, o arquivo local não muda.
+
+## Stack com evidência (`docs/agents/stack.md`)
+
+No setup/recalibrar, `dev-devx`, `frontend-devx` e `qa-devx` consolidam a stack a partir de manifests, ADRs e código — **sem inventar** bibliotecas ou comandos. O artefato compartilhado `docs/agents/stack.md` usa camadas:
+
+- **Core** (Dev)
+- **Interface (Frontend)**
+- **Qualidade (QA)**
+- **Decisões em aberto** / **Sugestões arquivadas** (opcional)
+
+Com stack já definida no repositório, cada papel **documenta o vigente** e pode **sugerir melhorias** como proposta; se você optar por **manter como está**, a skill local segue a stack atual. Libs novas só entram após sua aprovação (ou ADR). Antes de redigir a skill local, o agente consulta documentação oficial (`WebFetch`) das tecnologias confirmadas.
+
+QA e Frontend não ficam limitados à visão do Dev: podem questionar e sugerir runners, frameworks ou recursos que impactem testes e UI, sempre como recomendação opcional.
 
 ## Esteira
 

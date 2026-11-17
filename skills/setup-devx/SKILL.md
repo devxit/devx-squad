@@ -28,8 +28,8 @@ setup-devx:
 - [ ] Etapa 2 — Setup Matt no repositório (docs/agents/)
 - [ ] Etapa 3a — Skill local PO
 - [ ] Etapa 3b — Skill local Dev
-- [ ] Etapa 3c — Skill local QA
-- [ ] Etapa 3d — Skill local Frontend
+- [ ] Etapa 3c — Skill local Frontend
+- [ ] Etapa 3d — Skill local QA
 ```
 
 ## Etapa 1 — Pacote Matt Pocock no ambiente
@@ -94,20 +94,20 @@ Critério de saída: `issue-tracker.md` e `domain.md` existem e o arquivo de ins
 
 ## Etapa 3 — Skills locais da squad (um papel por vez)
 
-Ordem fixa: **PO → Dev → QA → Frontend**. Só inicie o próximo papel quando o atual tiver um desfecho explícito (skill criada, recalibrada com aprovação, gerada de novo com confirmação, ou mantida).
+Ordem fixa: **PO → Dev → Frontend → QA**. O QA depende das decisões de Interface (E2E/UI, viewports, framework web) consolidadas pelo `frontend-devx`. Só inicie o próximo papel quando o atual tiver um desfecho explícito (skill criada, recalibrada com aprovação, gerada de novo com confirmação, ou mantida).
 
 Para cada papel:
 
 1. Leia integralmente o `SKILL.md` global correspondente instalado (`po-devx`, `dev-devx`, `qa-devx`, `frontend-devx`).
-2. Trate a invocação como **explícita** (`$po-devx`, `$dev-devx`, `$qa-devx`, `$frontend-devx`), conforme o Caso A dessas skills.
+2. Trate a invocação como **explícita** (`$po-devx`, `$dev-devx`, `$frontend-devx`, `$qa-devx`), conforme o Caso A dessas skills.
 3. Procure `.agents/skills/*-<papel>-devx/SKILL.md` no repositório atual.
 
 | Ordem | Global | Arquivo local esperado |
 | --- | --- | --- |
 | 3a | `po-devx` | `.agents/skills/<project>-po-devx/SKILL.md` |
 | 3b | `dev-devx` | `.agents/skills/<project>-dev-devx/SKILL.md` |
-| 3c | `qa-devx` | `.agents/skills/<project>-qa-devx/SKILL.md` |
-| 3d | `frontend-devx` | `.agents/skills/<project>-frontend-devx/SKILL.md` |
+| 3c | `frontend-devx` | `.agents/skills/<project>-frontend-devx/SKILL.md` |
+| 3d | `qa-devx` | `.agents/skills/<project>-qa-devx/SKILL.md` |
 
 ### Se a skill local **não** existir
 
