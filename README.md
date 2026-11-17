@@ -44,7 +44,9 @@ Ao rodar `$devx-po`, `$devx-qa`, `$devx-dev` ou `$devx-frontend` num projeto, o 
 
 Exemplos: `.agents/skills/devx-noah-po/SKILL.md`, `.agents/skills/devx-noah-qa/SKILL.md`.
 
-Se esse arquivo já existe, o agente carrega a versão local e atende com ela. Se você pedir para recalibrar, ele compara o levantamento novo com o arquivo atual e só grava depois da sua aprovação. Nas sessões seguintes, invoque direto `$devx-<project>-po` (ou `-qa`, `-dev`, `-frontend`).
+Essas skills globais existem só para o setup. Se `.agents/skills/devx-<project>-<papel>/SKILL.md` já existe e a global não foi chamada de forma explícita, ela é ignorada. O trabalho segue na skill local (`$devx-<project>-po`, `$devx-<project>-qa`, `$devx-<project>-dev` ou `$devx-<project>-frontend`).
+
+Se a global for chamada de propósito (`$devx-po`, `$devx-qa`, `$devx-dev` ou `$devx-frontend`) e a local já existir, ela não assume o papel. Oferece três caminhos, porque os requisitos do projeto podem ter mudado: recalibrar a skill local, gerar uma nova no lugar, ou manter a atual. Sem essa escolha, o arquivo local não muda.
 
 ## Esteira
 
@@ -74,10 +76,10 @@ Discovery → Testes Red → Implementação (DEV) → UI/PWA → QA Exploratór
     ├── devx-qa/SKILL.md
     ├── devx-dev/SKILL.md
     ├── devx-frontend/SKILL.md
-    └── devx-squad/
+    └── devx-skill-creator/
 ```
 
-`devx-squad` é a skill que autora outras skills. As quatro acima são o harness.
+`devx-skill-creator` é a skill que autora outras skills. As quatro acima são o harness. Instalação dela: `npx skills add devxit/devx-squad --skill devx-skill-creator`.
 
 ## Licença
 
