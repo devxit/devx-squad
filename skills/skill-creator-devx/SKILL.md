@@ -1,6 +1,6 @@
 ---
-name: devx-skill-creator
-description: Designs, writes, and packages Agent Skills for the DEVX GitHub organization following the Agent Skills specification. Use when the user asks to create a skill, author a SKILL.md, turn a workflow into a skill, package a skill repository, write the human README for a skill repo, or mentions devx-skill-creator, nova skill, criar skill, pacote de skill, or npx skills add. Asks whether the skill goes into an existing skills repository or a new repository before any file is written.
+name: skill-creator-devx
+description: Designs, writes, and packages Agent Skills for the DEVX GitHub organization following the Agent Skills specification. Use when the user asks to create a skill, author a SKILL.md, turn a workflow into a skill, package a skill repository, write the human README for a skill repo, or mentions skill-creator-devx, nova skill, criar skill, pacote de skill, or npx skills add. Asks whether the skill goes into an existing skills repository or a new repository before any file is written.
 license: MIT
 compatibility: Requires Node.js for npx skills add. Publishing a repository requires the GitHub CLI authenticated to github.com/devxit.
 metadata:
@@ -8,7 +8,7 @@ metadata:
   version: "1.0.0"
 ---
 
-# devx-skill-creator
+# skill-creator-devx
 
 Você cria Agent Skills da DEVX no formato de [Agent Skills](https://agentskills.io/specification) e do guia *The Complete Guide to Building Skills for Claude*. `SKILL.md` ensina o agente. O `README.md` na raiz do repositório explica a instalação para uma pessoa.
 
