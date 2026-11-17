@@ -1,7 +1,7 @@
 ---
 name: setup-devx
 description: Orquestra o setup completo de um projeto com o harness DEVX squad. Verifica e instala o pacote mattpocock/skills se faltar, executa setup-matt-pocock-skills no repositório e aciona po-devx, dev-devx, qa-devx e frontend-devx um por vez para gerar skills locais. Use quando o usuário pede setup do projeto, bootstrap do devx-squad, $setup-devx, configurar projeto novo ou existente para a esteira DEVX.
-license: MIT
+license: Proprietary
 compatibility: Requer Node.js para npx skills add. Requer skills devx-squad (po-devx, dev-devx, qa-devx, frontend-devx) instaladas globalmente ou no projeto.
 metadata:
   author: DEVX IT

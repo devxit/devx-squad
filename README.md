@@ -113,4 +113,4 @@ Discovery → Testes Red → Implementação (DEV) → UI/PWA → QA Exploratór
 
 ## Licença
 
-MIT. Veja [LICENSE](LICENSE).
+Software **proprietário e privado** da DEVX IT. Uso restrito — veja [LICENSE](LICENSE).
