@@ -2,9 +2,23 @@
 
 Harness de agentes auto-adaptáveis da [DEVX IT](https://github.com/devxit), integrado às skills do Matt Pocock. Cada agente global lê o repositório em que é chamado e grava uma especialização local daquele projeto.
 
-## Pré-requisito
+## Setup rápido (`devx-setup`)
 
-As skills do Matt Pocock precisam estar instaladas antes de usar o squad:
+A skill `devx-setup` faz o onboarding completo do projeto, novo ou existente:
+
+1. Verifica se o pacote [mattpocock/skills](https://github.com/mattpocock/skills/tree/main) está no ambiente; se faltar, oferece `npx skills add mattpocock/skills -g -y`.
+2. Executa o fluxo de `setup-matt-pocock-skills` no repositório (`docs/agents/`, issue tracker, domínio). Se `docs/agents/` já existir, pergunta se pula ou refaz.
+3. Aciona **um por vez** as globais `devx-po` → `devx-dev` → `devx-qa` → `devx-frontend` para criar ou atualizar `.agents/skills/devx-<project>-<papel>/SKILL.md`.
+
+```bash
+npx skills add devxit/devx-squad --skill devx-setup -g -y
+```
+
+No agente, invoque `$devx-setup` na raiz do projeto alvo.
+
+## Pré-requisito (uso manual)
+
+Se não usar `devx-setup`, instale o Matt antes do squad:
 
 ```bash
 npx skills add mattpocock/skills
@@ -32,7 +46,7 @@ Uma skill específica:
 npx skills add devxit/devx-squad --skill devx-po
 ```
 
-O mesmo `--skill` vale para `devx-qa`, `devx-dev` e `devx-frontend`.
+O mesmo `--skill` vale para `devx-qa`, `devx-dev`, `devx-frontend` e `devx-setup`.
 
 ## Auto-Bootstrap
 
@@ -76,10 +90,11 @@ Discovery → Testes Red → Implementação (DEV) → UI/PWA → QA Exploratór
     ├── devx-qa/SKILL.md
     ├── devx-dev/SKILL.md
     ├── devx-frontend/SKILL.md
+    ├── devx-setup/SKILL.md
     └── devx-skill-creator/
 ```
 
-`devx-skill-creator` é a skill que autora outras skills. As quatro acima são o harness. Instalação dela: `npx skills add devxit/devx-squad --skill devx-skill-creator`.
+`devx-setup` orquestra Matt + bootstrap das quatro skills locais. `devx-skill-creator` autora outras Agent Skills DEVX. As quatro primeiras são o harness da esteira.
 
 ## Licença
 
