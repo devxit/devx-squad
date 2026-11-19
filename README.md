@@ -1,22 +1,129 @@
 # devx-squad
 
-Harness de agentes auto-adaptáveis da [DEVX IT](https://github.com/devxit), integrado às skills do Matt Pocock. Cada agente global lê o repositório em que é chamado e grava uma especialização local daquele projeto.
+Harness de agentes da [DEVX IT](https://github.com/devxit), integrado às [skills do Matt Pocock](https://github.com/mattpocock/skills). O squad entrega **personas especializadas** (PO, Dev, Frontend, QA) que primeiro **aprendem o seu repositório** e depois operam nele com regras explícitas do projeto.
+
+## Conceito: global × local
+
+```mermaid
+flowchart LR
+  subgraph pacote ["Pacote devx-squad instalado"]
+    gPO[po-devx]
+    gDev[dev-devx]
+    gFront[frontend-devx]
+    gQA[qa-devx]
+    gSetup[setup-devx]
+  end
+
+  subgraph repo ["Seu repositório"]
+    docs["docs/agents/ issue-tracker, domain, stack"]
+    local[".agents/skills/project-papel-devx/"]
+  end
+
+  gSetup -->|"1x onboarding"| docs
+  gSetup -->|"gera"| local
+  gPO --> local
+  gDev --> local
+  gFront --> local
+  gQA --> local
+  local -->|"dia a dia"| trabalho["$project-po-devx, $project-dev-devx, ..."]
+```
+
+| Camada | O quê | Quando usar |
+| --- | --- | --- |
+| **Skills globais** | Receitas de setup em `devx-squad/skills/*-devx` | Primeira vez no repo ou recalibração (`$po-devx`, `$setup-devx`, etc.) |
+| **Skills locais** | `.agents/skills/<project>-<papel>-devx/SKILL.md` | Todo trabalho de esteira: stack, gates, vocabulário e fluxos **deste** projeto |
+| **Matt Pocock** | `$tdd`, `$implement`, `$grill-me`, `$to-spec`, … | Execução técnica referenciada pelas skills locais |
+
+Regra prática: se a skill local já existe, a global **não assume o papel** — você invoca `$<project>-<papel>-devx`. A global só volta com chamada explícita (ex.: `$dev-devx`) para recalibrar, regerar ou manter o arquivo local.
+
+## Fluxo de uso no dia a dia
+
+```mermaid
+flowchart TD
+  init{Projeto já tem setup?}
+  setup["$setup-devx na raiz"]
+  pronto["docs/agents + .agents/skills/*-devx"]
+  tarefa[Nova demanda ou ticket]
+  persona["Invoque $<project>-Papel-devx"]
+  matt[Skills Matt conforme a fase]
+  gates[Gates do repo typecheck test build]
+
+  init -->|não| setup --> pronto
+  init -->|sim| tarefa
+  pronto --> tarefa
+  tarefa --> persona --> matt --> gates
+  gates --> tarefa
+```
+
+1. **Onboarding (uma vez):** `$setup-devx` — Matt no ambiente, `docs/agents/`, skills locais na ordem PO → Dev → Frontend → QA.
+2. **Entrega contínua:** escolha a persona local alinhada à fase (spec, teste vermelho, código, UI, exploração, aceite).
+3. **Evidência compartilhada:** `docs/agents/stack.md` (Core, Interface, Qualidade) e issue tracker em `docs/agents/`.
+
+`copy-writer-devx` é **paralela à esteira técnica** — copy de landing (CRO, SEO, GEO, AEO) via `$copy-writer-devx`, sem gerar skill local por projeto.
+
+## Exemplo: uma funcionalidade de ponta a ponta
+
+Cenário fictício no projeto **`noah`**: *“Filtros avançados no catálogo de imóveis”*.
+
+```mermaid
+sequenceDiagram
+  participant PO as noah-po-devx
+  participant QA as noah-qa-devx
+  participant Dev as noah-dev-devx
+  participant Front as noah-frontend-devx
+  participant Matt as Matt skills
+  participant Repo as Repo e CI
+
+  PO->>Matt: grill-me, to-spec, to-tickets
+  PO->>Repo: spec e tickets no tracker
+  QA->>Matt: tdd
+  QA->>Repo: testes Red nos seams API e UI
+  Dev->>Matt: implement, tdd
+  Dev->>Repo: API e persistencia verde
+  Front->>Matt: design-an-interface, implement
+  Front->>Repo: filtros UI, responsivo, design system
+  QA->>Matt: qa, tdd se gaps
+  QA->>Repo: exploratorio E2E e docs/qa
+  PO->>Repo: UAT e aceite no ticket
+```
+
+| Fase | Persona | Entregável típico |
+| --- | --- | --- |
+| 1. Discovery | `$noah-po-devx` | Escopo, critérios de aceite, tickets com label pronta para agente |
+| 2. Red | `$noah-qa-devx` | Testes comportamentais falhando na pirâmide certa (contrato + E2E quando couber) |
+| 3. Implementação | `$noah-dev-devx` | Backend/dominio verde, respeitando `stack.md` Core |
+| 4. Interface | `$noah-frontend-devx` | Telas de filtro, estados vazio/erro, fidelidade ao design system |
+| 5. Exploratório | `$noah-qa-devx` | Regressão, inventário `docs/qa/`, gates na ordem do projeto |
+| 6. UAT | `$noah-po-devx` | Aceite ou devolução com evidência no tracker |
+
+Ordem da **esteira técnica** (visão resumida):
+
+```mermaid
+flowchart LR
+  D[Discovery PO]
+  R[Testes Red QA]
+  I[Implementacao Dev]
+  U[UI Frontend]
+  E[Exploratorio QA]
+  A[UAT PO]
+
+  D --> R --> I --> U --> E --> A
+```
 
 ## Setup rápido (`setup-devx`)
 
-A skill `setup-devx` faz o onboarding completo do projeto, novo ou existente:
-
-1. Verifica se o pacote [mattpocock/skills](https://github.com/mattpocock/skills/tree/main) está no ambiente; se faltar, oferece `npx skills add mattpocock/skills -g -y`.
-2. Executa o fluxo de `setup-matt-pocock-skills` no repositório (`docs/agents/`, issue tracker, domínio). Se `docs/agents/` já existir, pergunta se pula ou refaz.
-3. Aciona **um por vez** as globais `po-devx` → `dev-devx` → `frontend-devx` → `qa-devx` para criar ou atualizar `.agents/skills/<project>-<papel>-devx/SKILL.md` (QA por último para alinhar E2E/UI à camada Interface).
-
 ```bash
 npx skills add devxit/devx-squad --skill setup-devx -g -y
+npx skills add mattpocock/skills -g -y   # se ainda nao tiver
 ```
 
-No agente, invoque `$setup-devx` na raiz do projeto alvo.
+Na raiz do projeto alvo: **`$setup-devx`**.
 
-### Fluxo do setup
+1. Verifica skills Matt (`grill-me`, `tdd`, `to-spec`, `setup-matt-pocock-skills`).
+2. Grava `docs/agents/` (tracker, domínio) via fluxo Matt.
+3. Gera skills locais: **po-devx → dev-devx → frontend-devx → qa-devx** (QA por último, alinhado à Interface para E2E).
+
+### Diagrama do setup
 
 ```mermaid
 flowchart TD
@@ -30,12 +137,12 @@ flowchart TD
   e2ask[Pular ou refazer docs/agents]
   e2new[Explora, confirma e grava docs/agents e AGENTS.md]
   e3["Etapa 3 — Skills locais um papel por vez"]
-  po["3a po-devx → project-po-devx"]
-  dev["3b dev-devx → project-dev-devx"]
-  front["3c frontend-devx → project-frontend-devx"]
-  qa["3d qa-devx → project-qa-devx"]
-  roleout["Por papel: criar, recalibrar, regerar ou manter"]
-  endNode["Projeto pronto: docs/agents + .agents/skills/*-devx"]
+  po["3a po-devx"]
+  dev["3b dev-devx"]
+  front["3c frontend-devx"]
+  qa["3d qa-devx"]
+  roleout["Criar, recalibrar, regerar ou manter"]
+  endNode["Pronto: docs/agents + .agents/skills/*-devx"]
 
   start --> e1 --> e1ok
   e1ok -->|sim| e2
@@ -48,104 +155,54 @@ flowchart TD
   e3 --> po --> roleout --> dev --> roleout --> front --> roleout --> qa --> roleout --> endNode
 ```
 
-Durante a **Etapa 3**, Dev/Frontend/QA podem consolidar `docs/agents/stack.md` (camadas Core, Interface e Qualidade) conforme as skills globais. O **frontend** roda sabatina de escopo antes de gravar a skill local; o **QA** usa a Interface já definida para E2E/UI.
-
-## Pré-requisito (uso manual)
-
-Se não usar `setup-devx`, instale o Matt antes do squad:
-
-```bash
-npx skills add mattpocock/skills
-```
+Na Etapa 3, Dev/Frontend/QA podem preencher `docs/agents/stack.md`. O **frontend** fecha escopo (perfil, PWA, motion, a11y, i18n) antes de gravar a skill local; o **QA** usa a camada Interface para E2E/UI.
 
 ## Instalação
 
-O único método suportado é `npx skills add`.
-
-Repositório inteiro, no projeto atual:
+Método suportado: **`npx skills add`**.
 
 ```bash
+# Pacote completo no projeto atual
 npx skills add devxit/devx-squad
-```
 
-Global, disponível em todos os projetos (`~/.agents/skills`):
-
-```bash
+# Global (~/.agents/skills)
 npx skills add devxit/devx-squad -g
-```
 
-Uma skill específica:
-
-```bash
+# Uma skill
 npx skills add devxit/devx-squad --skill po-devx
 ```
 
-O mesmo `--skill` vale para `qa-devx`, `dev-devx`, `frontend-devx`, `copy-writer-devx` e `setup-devx`.
-
-## Auto-Bootstrap
-
-Ao rodar `$po-devx`, `$qa-devx`, `$dev-devx` ou `$frontend-devx` num projeto, o agente escaneia o repositório (docs, stack, testes e código) e gera a especialização local:
-
-```text
-.agents/skills/<project>-<papel>-devx/SKILL.md
-```
-
-Exemplos: `.agents/skills/noah-po-devx/SKILL.md`, `.agents/skills/noah-qa-devx/SKILL.md`.
-
-Essas skills globais existem só para o setup. Se `.agents/skills/<project>-<papel>-devx/SKILL.md` já existe e a global não foi chamada de forma explícita, ela é ignorada. O trabalho segue na skill local (`$<project>-po-devx`, `$<project>-qa-devx`, `$<project>-dev-devx` ou `$<project>-frontend-devx`).
-
-Se a global for chamada de propósito (`$po-devx`, `$qa-devx`, `$dev-devx` ou `$frontend-devx`) e a local já existir, ela não assume o papel. Oferece três caminhos, porque os requisitos do projeto podem ter mudado: recalibrar a skill local, gerar uma nova no lugar, ou manter a atual. Sem essa escolha, o arquivo local não muda.
+Skills disponíveis: `po-devx`, `dev-devx`, `frontend-devx`, `qa-devx`, `copy-writer-devx`, `setup-devx`, `skill-creator-devx`.
 
 ## Stack com evidência (`docs/agents/stack.md`)
 
-No setup/recalibrar, `dev-devx`, `frontend-devx` e `qa-devx` consolidam a stack a partir de manifests, ADRs e código — **sem inventar** bibliotecas ou comandos. O artefato compartilhado `docs/agents/stack.md` usa camadas:
+Camadas **Core** (Dev), **Interface** (Frontend), **Qualidade** (QA), mais **Decisões em aberto** / **Sugestões arquivadas**. Stack existente no repo é documentada como vigente; melhorias são sugestões opcionais. Libs e comandos **não são inventados** — manifests, ADRs e `WebFetch` na doc oficial antes da skill local.
 
-- **Core** (Dev)
-- **Interface (Frontend)**
-- **Qualidade (QA)**
-- **Decisões em aberto** / **Sugestões arquivadas** (opcional)
+## Personas do squad
 
-Com stack já definida no repositório, cada papel **documenta o vigente** e pode **sugerir melhorias** como proposta; se você optar por **manter como está**, a skill local segue a stack atual. Libs novas só entram após sua aprovação (ou ADR). Antes de redigir a skill local, o agente consulta documentação oficial (`WebFetch`) das tecnologias confirmadas.
-
-QA e Frontend não ficam limitados à visão do Dev: podem questionar e sugerir runners, frameworks ou recursos que impactem testes e UI, sempre como recomendação opcional.
-
-No setup, `frontend-devx` infere o perfil do produto (SaaS, vitrine, landing, etc.), conduz sabatina obrigatória e grava a skill local **sem** assumir PWA ou motion imersivo por padrão; a11y e i18n entram só se você confirmar. A skill do projeto exige fidelidade a Figma/HTML/imagem dentro do design system e checagem de componentes reutilizáveis.
-
-## Esteira
-
-| Agente | Papel | Onde entra na esteira |
+| Skill global | Persona local | Foco |
 | --- | --- | --- |
-| `po-devx` | Product Owner: discovery, spec, tickets e aceite | Discovery e UAT |
-| `qa-devx` | QA: pirâmide de testes, risco e exploração | Testes Red e QA exploratório |
-| `dev-devx` | Dev full stack: pattern mining e implementação | Implementação (DEV) |
-| `frontend-devx` | UI sob medida ao arquétipo; PWA e motion imersivo só se o escopo fechar na sabatina | UI/PWA |
-| `copy-writer-devx` | Copy de LP: CRO, SEO, GEO e AEO (duas fases; sem inventar fatos) | Marketing / conteúdo (fora da esteira técnica) |
+| `po-devx` | `$<project>-po-devx` | Discovery, spec, tickets, UAT |
+| `qa-devx` | `$<project>-qa-devx` | Pirâmide de testes, risco, exploratório |
+| `dev-devx` | `$<project>-dev-devx` | Implementação full stack e gates |
+| `frontend-devx` | `$<project>-frontend-devx` | UI sob medida ao arquétipo; PWA/motion só no escopo fechado |
+| `copy-writer-devx` | *(sem local)* | Copy de LP — CRO, SEO, GEO, AEO |
 
-Fluxo completo:
-
-```text
-Discovery → Testes Red → Implementação (DEV) → UI/PWA → QA Exploratório → UAT
-```
-
-`po-devx` abre o discovery e fecha o UAT. `qa-devx` escreve os testes no vermelho e faz o QA exploratório. `dev-devx` implementa a fatia. `frontend-devx` constrói a interface, o PWA e o motion.
-
-## Layout
+## Layout do repositório
 
 ```text
 .
 ├── README.md
 ├── LICENSE
 └── skills/
-    ├── po-devx/SKILL.md
-    ├── qa-devx/SKILL.md
-    ├── dev-devx/SKILL.md
-    ├── frontend-devx/SKILL.md
-    ├── copy-writer-devx/SKILL.md
-    ├── setup-devx/SKILL.md
+    ├── po-devx/
+    ├── dev-devx/
+    ├── frontend-devx/
+    ├── qa-devx/
+    ├── copy-writer-devx/
+    ├── setup-devx/
     └── skill-creator-devx/
 ```
-
-`setup-devx` orquestra Matt + bootstrap das quatro skills locais. `skill-creator-devx` autora outras Agent Skills DEVX. As quatro primeiras são o harness da esteira.
 
 ## Licença
 
