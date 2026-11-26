@@ -59,7 +59,7 @@ flowchart TD
 2. **Entrega contínua:** escolha a persona local alinhada à fase (spec, teste vermelho, código, UI, exploração, aceite).
 3. **Evidência compartilhada:** `docs/agents/stack.md` (Core, Interface, Qualidade) e issue tracker em `docs/agents/`.
 
-`copy-writer-devx` e `engine-discover-devx` são **paralelas à esteira técnica** — copy multi-arquétipo (institucional, blog, vitrine, e-commerce, SaaS, LP) + microcopy (`$copy-writer-devx`) e auditoria SEO/GEO/AEO por arquétipo (`$engine-discover-devx`). Protocolo combinado **`site-par-v1`** (2 turnos) com IDs compartilhados (`landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `multi-app`). Sem skill local por projeto.
+`copy-writer-devx` e `engine-discover-devx` são **paralelas à esteira técnica** — copy multi-arquétipo (webapp, institucional, blog, vitrine, e-commerce, SaaS, LP, monorepo) + microcopy (`$copy-writer-devx`) e auditoria SEO/GEO/AEO (`$engine-discover-devx`). Protocolo **`site-par-v1`**; IDs: `landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `webapp`, `multi-app`. **`frontend-devx`** fecha mapa rota → `arquetipo_id` e `topologia_id` (`webapp` vs `multi-app`) na sabatina de setup — ver [`copy-engine-bridge.md`](skills/frontend-devx/references/copy-engine-bridge.md). Sem skill local copy/engine por projeto.
 
 ## Exemplo: uma funcionalidade de ponta a ponta
 

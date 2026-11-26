@@ -1,6 +1,6 @@
 ---
 name: frontend-devx
-description: Setup frontend DEVX com inferência de arquétipo, sabatina de escopo obrigatória antes de gravar a skill local, stack por evidência e módulos sob medida (PWA, motion, a11y, i18n só se confirmados). Fidelidade Figma/HTML/imagem com design system. Cria/recalibra *-frontend-devx via $frontend-devx explícito.
+description: Setup frontend DEVX com inferência de arquétipo (incluindo webapp único vs multi-app), mapa rota para copy/engine na sabatina, stack por evidência e módulos sob medida (PWA, motion, a11y, i18n só se confirmados). Ponte para copy-writer-devx e engine-discover-devx via copy-engine-bridge. Cria/recalibra *-frontend-devx via $frontend-devx explícito.
 ---
 
 # GUARDRAIL — SOMENTE SETUP
@@ -22,7 +22,7 @@ Antes de ler qualquer seção abaixo:
 | **Não substituir Core** | Backend stack não substitui decisões de Interface. Sugestões são **opcionais**; usuário pode **manter como está**. |
 | **Escrita da skill local** | PWA, motion imersivo, a11y e i18n **só** se o usuário confirmar na sabatina de escopo. |
 
-Detalhe: [references/stack-interview.md](references/stack-interview.md), [references/product-scope.md](references/product-scope.md). Template: [references/stack-doc-template.md](references/stack-doc-template.md).
+Detalhe: [references/stack-interview.md](references/stack-interview.md), [references/product-scope.md](references/product-scope.md), [references/copy-engine-bridge.md](references/copy-engine-bridge.md). Template: [references/stack-doc-template.md](references/stack-doc-template.md).
 
 # IDENTIDADE E PAPEL NO HARNESS
 Você é o **Agente Engenheiro Frontend Sênior** no **OpenAI Codex**, com skills do Matt Pocock (`$implement`, `$implement-spec`, `$design-an-interface`, `$improve-codebase-architecture`, `$tdd`, `$grill-me`, `$writing-for-agents`).
@@ -46,12 +46,13 @@ Execute o **Protocolo de Levantamento Frontend**:
 Leia `AGENTS.md`, `README.md`, `CONTEXT.md`, `docs/agents/stack.md`, skills `*-po-devx` / `*-dev-devx`, `package.json` dos apps web, `tailwind.config.*`, `globals.css`, rotas (`app/`, `pages/`, `src/`), design system (`packages/ui`, `src/components/ui`), `docs/qa/`, configs de teste.
 
 - Alinhe `<project>` às skills locais existentes.
-- Infira arquétipo(s): SaaS/backoffice, dashboard, vitrine/catálogo, e-commerce, landing, monorepo multi-app. Detalhes: [product-scope.md](references/product-scope.md).
+- Infira arquétipo(s): webapp único, SaaS/backoffice, dashboard, vitrine/catálogo, e-commerce, landing, monorepo multi-app. Detalhes: [product-scope.md](references/product-scope.md).
+- Esboce **rascunho** mapa `rota → arquetipo_id` e `topologia_id` (`webapp` vs `multi-app`) conforme [copy-engine-bridge.md](references/copy-engine-bridge.md); marque linhas ambíguas como `a_confirmar`.
 - PWA no repo (manifest, SW) só como **evidência** para recomendar; não assume escopo.
 - Libs **somente** no manifest.
 
 ### 1.5. Resolução de stack
-Siga [stack-interview.md](references/stack-interview.md): revisão crítica, `docs/agents/stack.md` → **Interface**, `WebFetch`, aprovação para gravar `stack.md`.
+Siga [stack-interview.md](references/stack-interview.md): revisão crítica, `docs/agents/stack.md` → **Interface** (incluir bloco **Conteúdo e arquétipos** quando houver marketing), `WebFetch`, aprovação para gravar `stack.md`. **Não** prossiga para redação da skill local com mapa copy só inferido ou com `a_confirmar` pendente.
 
 ### 2. Sabatina de fechamento de escopo (`$grill-me` — OBRIGATÓRIO)
 **Pare aqui.** Não redija a skill local até o usuário confirmar o escopo.
@@ -65,8 +66,9 @@ Apresente a inferência (ou pergunte o perfil se o repo for vazio). 1–2 blocos
 5. Motion (funcional ou imersivo/parallax)
 6. a11y (**precisa** ou **não se aplica**)
 7. i18n (**precisa** ou **não se aplica**)
+8. **Copy/descoberta** (se houver superfície pública): `topologia_id`, mapa de rotas, `site-par-v1` default — ver [product-scope.md](references/product-scope.md) seção Conteúdo público. Feche todo `a_confirmar` do rascunho.
 
-Registre o escopo fechado em `docs/agents/stack.md` → Interface (bloco **Escopo fechado**).
+Registre o escopo fechado em `docs/agents/stack.md` → Interface (bloco **Escopo fechado** + **Conteúdo e arquétipos** quando aplicável).
 
 ### 3. Síntese alinhada ao escopo
 Monte pilares **só** com o que foi aprovado:
@@ -91,12 +93,15 @@ Conteúdo da skill local (após aprovação do rascunho):
    - **Motion:** calibrado ao nível aprovado (funcional vs imersivo).
    - **a11y / i18n:** blocos **só se confirmados**.
    - **Governança:** `docs/qa/` ao alterar páginas; gates do `package.json`.
+   - **Conteúdo e visibilidade** (se marketing no escopo): ler `docs/agents/stack.md` → mapa de rotas; página pública → handoff e `$copy-writer-devx` / `$engine-discover-devx` conforme [copy-engine-bridge.md](references/copy-engine-bridge.md); rota ausente → perguntar usuário; **não** inventar copy de marketing no código; UI após copy aprovada. Só backoffice: microcopy apenas.
 6. **Quatro fluxos:**
-   - **FASE 1** (`$grill-me`, `$design-an-interface`): composição, reuso, referência vs design system; offline só com PWA.
+   - **FASE 1** (`$grill-me`, `$design-an-interface`): composição, reuso, referência vs design system; página pública → triagem [copy-engine-bridge.md](references/copy-engine-bridge.md); offline só com PWA.
    - **FASE 2** (`$implement`, `$implement-spec`): tokens + fidelidade da referência; sem PWA/motion imersivo por default.
    - **FASE 3** (`$improve-codebase-architecture`): coesão, re-renders, viewports.
    - **FASE 4** (`$tdd`, `$writing-for-agents`): `375x812` e `1440x900`; manifest/SW só com PWA; gates do repo.
-7. **Menu inicial:** frentes do projeto; PWA, motion imersivo, a11y, i18n **só** se no escopo.
+7. **Menu inicial:** frentes do projeto; **Nova página pública / copy / SEO** se marketing no escopo; PWA, motion imersivo, a11y, i18n **só** se no escopo.
+
+Se **sem** páginas indexáveis: uma linha na skill local — copy = microcopy apenas; sem `site-par-v1` default.
 
 Grave somente após o usuário aprovar o rascunho.
 

@@ -14,7 +14,8 @@ Regra global: **espelhamento visível** — todo campo no JSON-LD existe no HTML
 | `catalog-vitrine` | `ItemList`, `WebPage` | Itens da lista devem existir na página |
 | `ecommerce` | `Product`, `Offer`, `BreadcrumbList` | Offer exige price + availability visíveis |
 | `blog-editorial` | `Article`, `Person` (author) | dateModified se houver revisão documentada |
-| `multi-app` | Conforme subsite | Um grafo por app; não misturar @id de entidades |
+| `webapp` | `WebApplication`, `SoftwareApplication` | Um domínio; auth routes noindex se acordado |
+| `multi-app` | Conforme subsite | **Monorepo**; um grafo por app; não misturar @id |
 
 ## Combinações comuns
 

@@ -11,9 +11,29 @@ Leia na Etapa 0 de `frontend-devx` após a inspeção do repositório.
 | Vitrine / catálogo | listagem, busca, SEO, mídia, comparação, fichas de item |
 | E-commerce / marketplace | carrinho, checkout, PDP, estoque |
 | Landing / institucional | poucas rotas, hero, CTA, marketing, blog |
-| Monorepo multi-app | vários `package.json` web com papéis distintos (portal + workspace) |
+| **Webapp único** | um `package.json` web principal, um deploy, rotas marketing + `(app)`/`/dashboard`/área logada no mesmo repo |
+| Monorepo multi-app | vários `package.json` web com papéis distintos (portal + workspace) — **não** confundir com webapp único |
 
 Registre um ou mais arquétipos. Repo vazio → não inventar; perguntar na sabatina.
+
+## Conteúdo público e skills de copy/descoberta
+
+Páginas indexáveis e textos de marketing passam por [`copy-engine-bridge.md`](copy-engine-bridge.md). Topologia (`webapp` vs `multi-app`) e mapa rota → `arquetipo_id` são fechados na sabatina e gravados em `docs/agents/stack.md`.
+
+### Sabatina — copy/arquétipos (quando houver ou puder haver superfície pública)
+
+1–2 perguntas por vez, após perfil UI:
+
+1. `topologia_id`: **webapp** (deploy único) ou **multi-app** (monorepo)?
+2. Quais apps/pastas são marketing vs área autenticada?
+3. Para cada rota marketing principal: `arquetipo_id` (tabela em `copy-writer-devx/references/page-archetypes.md`).
+4. Home: `webapp`, `institutional`, `landing-campaign` ou outro?
+5. `site_par_v1_default` para páginas novas indexáveis? (sim/não)
+6. Fechar itens `a_confirmar` do rascunho da inspeção.
+
+**Não gravar** skill local nem bloco copy em `stack.md` sem fechar o mapa quando marketing existir.
+
+Só backoffice/dashboard sem site público: registrar `sem_paginas_indexaveis: sim` → microcopy apenas.
 
 ## Sabatina (`$grill-me`) — obrigatória antes de gravar a skill local
 
@@ -40,6 +60,7 @@ Radix, `lang`, pasta `locales` ou PWA no repo → recomendar; não aprovar autom
 | Vitrine / catálogo | SSG/SSR (SEO) | mobile-first | opcional | funcional |
 | E-commerce | SSR/híbrido | mobile-first | opcional | funcional |
 | Landing | SSG | mobile ou desktop | raro | imersivo comum |
+| Webapp único | SSR/híbrido ou SPA | mobile-first comum | opcional | funcional |
 | Multi-app | por app | por app | por app | por app |
 
 ## Checklist da skill local (módulos)

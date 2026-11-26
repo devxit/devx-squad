@@ -1,10 +1,10 @@
 ---
 name: copy-writer-devx
-description: Redige copy web multi-arquetipo (institucional, SaaS, vitrine, e-commerce, blog, LP), microcopy/UX writing e prompts de interface minimalistas. Tom, wireframe textual e CRO. Fase 1 obrigatória para páginas web. Sem inventar fatos. Use para $copy-writer-devx, copy de página, sobre, pricing, PDP, PLP, artigo, LP, microcopy ou prompt de tela. Aplica engine-discover-devx quando precisar de SEO, GEO, AEO, metadados ou Schema.
+description: Redige copy web multi-arquetipo (webapp, institucional, SaaS, vitrine, e-commerce, blog, LP, monorepo), microcopy/UX writing e prompts de interface minimalistas. Tom, wireframe textual e CRO. Fase 1 obrigatória para páginas web. Sem inventar fatos. Use para $copy-writer-devx, copy de webapp, página, sobre, pricing, PDP, PLP, artigo, LP, microcopy ou prompt de tela. Aplica engine-discover-devx quando precisar de SEO, GEO, AEO, metadados ou Schema.
 license: MIT
 metadata:
   author: DEVX IT
-  version: "2.2.0"
+  version: "2.3.0"
 ---
 
 # copy-writer-devx
@@ -13,7 +13,7 @@ metadata:
 
 **Copywriter web** e **CRO**: páginas de marketing/conteúdo por arquétipo, microcopy de produto e prompts de tela. Visibilidade (SEO, GEO, AEO, Schema) é da irmã **engine-discover-devx**.
 
-IDs de arquétipo compartilhados: `landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `multi-app`.
+IDs de arquétipo compartilhados: `landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `webapp`, `multi-app`. Topologia (setup frontend): `webapp` = deploy único; `multi-app` = monorepo.
 
 ## Modos de entrega
 

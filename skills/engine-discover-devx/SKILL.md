@@ -1,10 +1,10 @@
 ---
 name: engine-discover-devx
-description: Audita conteúdo e visibilidade (SEO, GEO, AEO) por arquétipo de página — institucional, blog, PDP, PLP, pricing, LP, vitrine — com intenção de busca, entidades, metadados, Schema JSON-LD e checklist de indexação. Sem inventar fatos. Use para $engine-discover-devx, auditoria de URL, SEO, GEO, AEO, meta tags, FAQ estruturado ou citabilidade em IAs. Aplica copy-writer-devx quando precisar redigir copy ou microcopy.
+description: Audita conteúdo e visibilidade (SEO, GEO, AEO) por arquétipo de página — webapp, institucional, blog, PDP, PLP, pricing, LP, vitrine, monorepo — com intenção de busca, entidades, metadados, Schema JSON-LD e checklist de indexação. Sem inventar fatos. Use para $engine-discover-devx, auditoria de URL, SEO, GEO, AEO, meta tags, FAQ estruturado ou citabilidade em IAs. Aplica copy-writer-devx quando precisar redigir copy ou microcopy.
 license: MIT
 metadata:
   author: DEVX IT
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # engine-discover-devx
@@ -13,7 +13,7 @@ metadata:
 
 **Visibilidade e descoberta** (SEO, GEO, AEO) em páginas **multi-arquétipo**. Entrega auditoria, metadados, Schema e diretrizes por bloco. Não redige copy persuasiva — irmã **copy-writer-devx**.
 
-IDs compartilhados: `landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `multi-app` (detalhe em [discovery-archetypes.md](references/discovery-archetypes.md)).
+IDs compartilhados: `landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `webapp`, `multi-app` (detalhe em [discovery-archetypes.md](references/discovery-archetypes.md)).
 
 ## Convívio com copy-writer-devx
 

@@ -2,7 +2,7 @@
 
 Leia após triagem **modo página web** em `copy-writer-devx`. IDs idênticos em `engine-discover-devx/references/discovery-archetypes.md`.
 
-Alinhado a `frontend-devx/references/product-scope.md` (marketing público; backoffice = microcopy + prompt UI).
+Alinhado a `frontend-devx/references/product-scope.md` (marketing público; backoffice = microcopy + prompt UI). Inferência de rota/topologia no setup: `frontend-devx/references/copy-engine-bridge.md`.
 
 ## Taxonomia (IDs congelados)
 
@@ -14,7 +14,8 @@ Alinhado a `frontend-devx/references/product-scope.md` (marketing público; back
 | `catalog-vitrine` | Vitrine / catálogo | Home catálogo, listagem, ficha resumo | Descoberta |
 | `ecommerce` | E-commerce | PDP, PLP (categoria) | Transação |
 | `blog-editorial` | Blog / editorial | Artigo, hub de conteúdo | Autoridade |
-| `multi-app` | Multi-app / portal | Páginas por app no monorepo | Por subsite |
+| `webapp` | Webapp único | Home do produto, signup/login, onboarding público no mesmo deploy | Produto + conversão signup |
+| `multi-app` | Monorepo multi-app | Vários packages web (portal + workspace, etc.) | Por subsite/app |
 
 ## Triagem rápida
 
@@ -157,13 +158,40 @@ Alinhado a `frontend-devx/references/product-scope.md` (marketing público; back
 
 ---
 
+## `webapp`
+
+Aplicação web **única** (um deploy, um package): marketing + área logada no mesmo repo. Diferente de `multi-app` (monorepo com vários apps).
+
+**Blocos:**
+
+| bloco_id | Conteúdo |
+| --- | --- |
+| `product_home` | Proposta do produto, para quem, CTA signup/login |
+| `auth_entry` | Copy de login, registro, recuperação (público) |
+| `feature_surface` | Capacidades como outcomes (não lista técnica solta) |
+| `onboarding_teaser` | Primeiros passos pós-cadastro (marketing, não tutorial in-app) |
+
+**Pronto:** um deploy = um tom de produto; rotas autenticadas (`/app`, dashboard) → modo **microcopy**, não página web.
+
+**Anti-patterns:** tratar como LP institucional pura; usar `multi-app` sem monorepo; 7 dobras de campanha na home do produto.
+
+**Insumos FASE 1:** produto, persona, objetivo (signup, trial, ativação), documentação de features.
+
+**Rotas típicas no mesmo app:** `/` → `webapp`; `/pricing` → `saas-marketing`; `/sobre` → `institutional` (use o ID da rota, não só `webapp`).
+
+---
+
 ## `multi-app`
+
+**Somente monorepo** com vários `package.json` web.
 
 1. Identifique **subsite/app** (portal vs workspace vs vitrine).
 2. Escolha um ID da tabela acima **por app**; não misture tom B2B e varejo na mesma entrega.
-3. Declare `arquetipo_id` + nome do app no handoff.
+3. Declare `topologia_id: multi-app`, `arquetipo_id` + nome do `app` no handoff.
 
 **Pronto:** uma entrega por app/página; vocabulário consistente dentro do app.
+
+**Anti-pattern:** usar `multi-app` para um único Next/Vite app — use topologia `webapp`.
 
 ---
 
@@ -172,8 +200,10 @@ Alinhado a `frontend-devx/references/product-scope.md` (marketing público; back
 Na conclusão da FASE 1, envie à irmã:
 
 ```text
+topologia_id: webapp | multi-app  # setup frontend; webapp = deploy único
 arquetipo_id: <id>
 blocos_planejados: [bloco_id, ...]
+app: <se multi-app>
 foco, publico, objetivo: <resumo>
 ```
 

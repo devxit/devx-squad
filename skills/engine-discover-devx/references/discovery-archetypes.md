@@ -1,6 +1,6 @@
 # Arquétipos de descoberta (SEO / GEO / AEO)
 
-Leia após triagem de **arquetipo_id** em `engine-discover-devx`. IDs idênticos a `copy-writer-devx/references/page-archetypes.md`.
+Leia após triagem de **arquetipo_id** em `engine-discover-devx`. IDs idênticos a `copy-writer-devx/references/page-archetypes.md`. Mapa de rotas no setup: `frontend-devx/references/copy-engine-bridge.md`.
 
 ## Triagem
 
@@ -72,8 +72,20 @@ Leia após triagem de **arquetipo_id** em `engine-discover-devx`. IDs idênticos
 
 ---
 
+## `webapp`
+
+- **Intenção:** comercial / transacional (signup, trial, ativação).
+- **Topologia:** um domínio, um deploy; não confundir com `multi-app`.
+- **GEO/AEO:** proposta clara do produto; entidade produto + categoria; evitar misturar site institucional separado no mesmo grafo sem ligação explícita.
+- **Schema:** `WebApplication` ou `SoftwareApplication` quando factível; canonical único.
+- **Gaps típicos:** `/app` indexável sem necessidade; login duplicando H1 da home; features invisíveis ao crawler.
+- **Checklist extra:** rotas autenticadas — `noindex` se política do projeto; Offer/price só com visível no HTML.
+
+---
+
 ## `multi-app`
 
+- **Escopo:** **monorepo** com vários packages web — não usar para webapp único.
 - **Intenção:** por subsite.
 - **GEO/AEO:** entidades e keywords **não fundidas** entre apps.
 - **Schema:** por domínio/rota; `canonical` e `hreflang` quando multilíngue.
