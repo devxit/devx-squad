@@ -59,7 +59,7 @@ flowchart TD
 2. **Entrega contínua:** escolha a persona local alinhada à fase (spec, teste vermelho, código, UI, exploração, aceite).
 3. **Evidência compartilhada:** `docs/agents/stack.md` (Core, Interface, Qualidade) e issue tracker em `docs/agents/`.
 
-`copy-writer-devx` é **paralela à esteira técnica** — copy de landing (CRO, SEO, GEO, AEO) via `$copy-writer-devx`, sem gerar skill local por projeto.
+`copy-writer-devx` e `engine-discover-devx` são **paralelas à esteira técnica** — copy/CRO (`$copy-writer-devx`) e auditoria SEO, GEO, AEO (`$engine-discover-devx`); as duas se invocam mutuamente em LP completa, sem skill local por projeto.
 
 ## Exemplo: uma funcionalidade de ponta a ponta
 
@@ -172,7 +172,7 @@ npx skills add devxit/devx-squad -g
 npx skills add devxit/devx-squad --skill po-devx
 ```
 
-Skills disponíveis: `po-devx`, `dev-devx`, `frontend-devx`, `qa-devx`, `copy-writer-devx`, `setup-devx`, `skill-creator-devx`.
+Skills disponíveis: `po-devx`, `dev-devx`, `frontend-devx`, `qa-devx`, `copy-writer-devx`, `engine-discover-devx`, `setup-devx`, `skill-creator-devx`.
 
 ## Stack com evidência (`docs/agents/stack.md`)
 
@@ -186,7 +186,8 @@ Camadas **Core** (Dev), **Interface** (Frontend), **Qualidade** (QA), mais **Dec
 | `qa-devx` | `$<project>-qa-devx` | Pirâmide de testes, risco, exploratório |
 | `dev-devx` | `$<project>-dev-devx` | Implementação full stack e gates |
 | `frontend-devx` | `$<project>-frontend-devx` | UI sob medida ao arquétipo; PWA/motion só no escopo fechado |
-| `copy-writer-devx` | *(sem local)* | Copy de LP — CRO, SEO, GEO, AEO |
+| `copy-writer-devx` | *(sem local)* | Copy de LP — CRO, tom, microcopy, prompts de tela |
+| `engine-discover-devx` | *(sem local)* | Auditoria de conteúdo — SEO, GEO, AEO, metadados, Schema |
 
 ## Layout do repositório
 
@@ -200,6 +201,7 @@ Camadas **Core** (Dev), **Interface** (Frontend), **Qualidade** (QA), mais **Dec
     ├── frontend-devx/
     ├── qa-devx/
     ├── copy-writer-devx/
+    ├── engine-discover-devx/
     ├── setup-devx/
     └── skill-creator-devx/
 ```
