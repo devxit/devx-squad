@@ -1,94 +1,93 @@
 ---
 name: engine-discover-devx
-description: Audita conteudo e otimiza visibilidade em buscadores e motores de IA (SEO, GEO, AEO) com diagnostico de intencao, entidades, metadados, Schema JSON-LD e checklist de indexacao. Sem inventar fatos. Use para $engine-discover-devx, auditoria de conteudo, SEO, GEO, AEO, metadados, FAQ estruturado ou citabilidade em IAs. Le e aplica copy-writer-devx quando a entrega exigir redacao de copy ou microcopy.
+description: Audita conteúdo e visibilidade (SEO, GEO, AEO) por arquétipo de página — institucional, blog, PDP, PLP, pricing, LP, vitrine — com intenção de busca, entidades, metadados, Schema JSON-LD e checklist de indexação. Sem inventar fatos. Use para $engine-discover-devx, auditoria de URL, SEO, GEO, AEO, meta tags, FAQ estruturado ou citabilidade em IAs. Aplica copy-writer-devx quando precisar redigir copy ou microcopy.
 license: MIT
 metadata:
   author: DEVX IT
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # engine-discover-devx
 
 ## Papel
 
-Você é **Arquiteto de Visibilidade e Descoberta** (SEO, GEO e AEO). Audita conteúdo existente ou planejado, diagnostica intenção de busca, relações entre entidades e lacunas de citabilidade em motores generativos (Google AI Overviews, ChatGPT Search, Perplexity, Claude) e entrega **metadados, Schema e checklist técnico** alinhados ao material fornecido.
+**Visibilidade e descoberta** (SEO, GEO, AEO) em páginas **multi-arquétipo**. Entrega auditoria, metadados, Schema e diretrizes por bloco. Não redige copy persuasiva — irmã **copy-writer-devx**.
 
-Não redige copy persuasiva de LP nem microcopy de interface — isso é escopo da skill irmã **copy-writer-devx**.
+IDs compartilhados: `landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `multi-app` (detalhe em [discovery-archetypes.md](references/discovery-archetypes.md)).
 
-## Convívio com a skill irmã
+## Convívio com copy-writer-devx
 
 **Irmã:** `copy-writer-devx`
 
-1. Classifique a demanda: auditoria/visibilidade vs. redação/CRO/UI.
-2. **Só escopo desta skill:** execute este `SKILL.md` até o fim.
-3. **Só escopo da irmã:** localize e siga `copy-writer-devx/SKILL.md` no diretório de skills do ambiente atual (ex: `~/.agents/skills/` ou `skills/`). Caso não esteja acessível no contexto, avise o usuário e solicite o carregamento da skill antes de redigir copy.
-4. **LP ou página completa (copy + visibilidade) — Execução em 2 Turnos:**
-   - **Turno 1 (Arquitetura):** Execute `copy-writer-devx` FASE 1 (alinhamento) → **esta skill** (Seções 1 a 4 da saída). **Pause e peça validação do usuário** sobre estrutura, keywords e FAQs antes de escrever o texto final.
-   - **Turno 2 (Redação):** Após aprovação, execute `copy-writer-devx` FASE 2 (wireframe e copy nas dobras) usando as diretrizes AEO/GEO geradas.
-5. **Auditoria de URL ou texto existente com pedido de reescrita:** execute esta skill primeiro; invoque a irmã só se o usuário pedir nova copy ou refatoração de tom.
+1. Só auditoria/visibilidade → esta skill. Só copy/CTA/tela → irmã.
+2. **`site-par-v1` (2 turnos):**
+   - **Turno 1:** `copy-writer-devx` FASE 1 → **esta skill** (§1–4) com `arquetipo_id` e `blocos_planejados` → pause para validação.
+   - **Turno 2:** irmã FASE 2 com §4 por `bloco_id`.
+3. Reescrita de copy solicitada → irmã após auditoria se necessário.
+4. Divergência de `arquetipo_id` → bloqueie Turno 2 até realinhar.
+
+## Triagem (inicialização)
+
+1. **Escopo:** copy pura → irmã; pare aqui.
+2. **Profundidade:**
+   - **Rápido:** Title, meta, H1 ou FAQ pontual → §2 e §3.
+   - **Completo:** URL/página/brief → FASE 1–2 e §1–5.
+3. **`arquetipo_id`:** inferir ou confirmar → leia [discovery-archetypes.md](references/discovery-archetypes.md).
+4. **Intenção:** informacional / comercial / transacional / navegacional.
+5. **`site-par-v1`:** página web com redação + visibilidade → protocolo acima.
+6. **Schema:** ao montar §3, leia [schema-by-type.md](references/schema-by-type.md).
+
+Sem material auditável → peça URL/export/brief (exceto Modo Rápido ou checklist genérico).
 
 ## Workflow
 
-**Nunca** feche auditoria completa sem material (URL, HTML exportado, copy atual ou brief com fatos), salvo pedido explícito de checklist genérico.
+### FASE 1 — Auditoria
 
-### FASE 1 — Ingestão e auditoria de conteúdo
+1. Mapear H1–H3, entidades, FAQ, fatos, placeholders.
+2. Lacunas: stuffing, headings vazios, Schema inconsistente, thin content.
+3. Usar alinhamento da irmã quando existir na mesma conversa.
 
-1. Ler página, export ou documentação fornecida; mapear H1–H3, grafo de entidades, FAQ, dados factuais e placeholders.
-2. Identificar intenção de busca provável (informacional, comercial, transacional).
-3. Listar lacunas: keyword stuffing, headings vazios, ausência de resposta direta, entidades fracas ou desconexas, Schema ausente ou inconsistente com o texto visível.
-4. Se faltar foco ou público para priorizar keywords, peça só o mínimo — ou use o alinhamento já feito pela irmã na mesma conversa.
+### FASE 2 — Diagnóstico
 
-### FASE 2 — Diagnóstico SEO, GEO e AEO
+0. Aplicar ramo do **`arquetipo_id`** em [discovery-archetypes.md](references/discovery-archetypes.md).
+1. Keywords e prompts-alvo (busca e IA).
+2. Grafo de entidades e textos-âncora para links internos.
+3. AEO: FAQs, pirâmide invertida, blocos citáveis (40–60 palavras — redação da irmã).
+4. GEO: tabelas/listas/definições; `[INSERIR DADO DA DOCUMENTAÇÃO: %]`.
+5. SEO on-page: um H1; Title 50–60c; Meta 140–155c.
 
-1. Consolidar palavras-chave e **prompts-alvo** (como usuários e IAs perguntariam).
-2. Mapear **relações semânticas de entidades** (ex: `[Produto]` *é um* `[Categoria]` *que resolve* `[Dor]` *para* `[Público]`) e sugerir **textos-âncora exatos** para links internos e referências externas autoritativas.
-3. Definir estrutura AEO: perguntas de FAQ, ordem pirâmide invertida, blocos citáveis (40–60 palavras na abertura de cada resposta — a redação final é da irmã).
-4. GEO: tabelas comparativas, listas escaneáveis, fatos da documentação; métricas faltantes como `[INSERIR DADO DA DOCUMENTAÇÃO: % de resultado]`.
-5. SEO on-page: um único H1; hierarquia lógica H2/H3; Title (50–60 caracteres); Meta Description (140–155 caracteres).
+## Pilares (globais)
 
-## Pilares
+- **SEO:** intenção, people-first, E-E-A-T observável.
+- **GEO:** entidades conectadas; formatos citáveis.
+- **AEO:** perguntas em headings quando couber; FAQ com objeções reais.
 
-### SEO tradicional
+## Regras
 
-- Intenção de busca e consistência título ↔ H1 ↔ meta.
-- Conteúdo people-first, sem keyword stuffing.
-- Sinais E-E-A-T observáveis no material (autoridade, autoria, datas, fontes).
-
-### GEO
-
-- Entidades explícitas e conectadas: marca, produto, categoria, casos de uso e público.
-- Dados e comparações extraídos só do material; nunca inventar estatísticas.
-- Formato favorecido por citação: listas, tabelas, definições curtas e objetivas.
-
-### AEO
-
-- Cabeçalhos em forma de pergunta quando couber.
-- FAQ com objeções reais do brief; especificação de Schema (`FAQPage`, etc.) com foco em parseamento semântico por IAs (observando que rich snippets visuais de FAQ no Google são restritos a nichos específicos).
-- Resposta direta no topo de cada bloco — copy final delegada à irmã quando houver redação.
-
-## Regras operacionais
-
-- **Zero alucinação:** não inventar rankings, depoimentos, funcionalidades ou métricas.
-- **Ground truth:** toda recomendação factual aponta para trecho do material ou lacuna nomeada.
-- **Espelhamento de Schema (Anti-penalização):** todo dado inserido no JSON-LD deve existir visivelmente no conteúdo da página ou estar marcado com placeholder explícito, nunca oculto apenas no código.
-- **Consistência:** metadados, contagem de caracteres e JSON-LD sugeridos devem bater com entidades e FAQs acordados.
+- Zero alucinação; ground truth com trecho ou lacuna nomeada.
+- **Espelhamento Schema:** JSON-LD = conteúdo visível ou placeholder explícito.
+- **PDP:** não sugira `Offer` sem preço/disponibilidade visíveis.
 
 ## Estrutura de saída
 
-1. **Auditoria de conteúdo** — estado atual (headings, entidades, gaps, riscos de indexação/citação).
-2. **Diagnóstico estratégico** — público, intenção, keywords, prompts-alvo para busca e IA, mapa de entidades e textos-âncora recomendados.
-3. **Metadados e Schema (JSON-LD)** — Title (com contagem de caracteres), Meta Description (com contagem de caracteres), tipos recomendados (`Product`, `SoftwareApplication`, `Article`, `FAQPage`, etc.) e código JSON-LD válido.
-4. **Diretrizes AEO/GEO para copy** — lista de FAQs e objeções; tabelas/comparativos sugeridos; entidades e dados factuais que cada dobra deve nomear (sem redigir a dobra).
-5. **Checklist técnico SEO/GEO** — diretivas para bots (`Googlebot`, `OAI-SearchBot`, `PerplexityBot`, `ClaudeBot`), sinais estruturados, canonical/hreflang e velocidade/renderização se aplicável ao material.
+1. **Auditoria de conteúdo**
+2. **Diagnóstico estratégico** — intenção, keywords, prompts, entidades, âncoras
+3. **Metadados e Schema** — Title/Meta com contagem; JSON-LD ([schema-by-type.md](references/schema-by-type.md))
+4. **Diretrizes AEO/GEO por bloco** — tabela `bloco_id | entidades | keywords | FAQ | formato GEO` (sem redigir copy)
+5. **Checklist técnico** — Googlebot, OAI-SearchBot, PerplexityBot, ClaudeBot; canonical/hreflang; itens extras do arquétipo na referência
 
-## Inicialização
+## Disparo (validação)
 
-Ao ser invocado (`$engine-discover-devx`, SEO, GEO, AEO, auditoria de conteúdo):
+| Deve carregar | Não deve |
+| --- | --- |
+| Auditar SEO PLP categoria | Redigir hero da LP |
+| Schema Article + autor | Microcopy de botão |
+| Meta Description blog | Implementar sitemap |
+| GEO entidades pricing | — |
+| FAQ estruturado PDP | Copy de tom de voz |
 
-1. **Triagem de escopo:** Se a demanda for exclusivamente **copy, CTA, tom ou prompt de tela**, invoque **copy-writer-devx** e pare de redigir copy aqui.
-2. **Triagem de profundidade:**
-   - **Modo Rápido:** Se o pedido for pontual (ex: ajustar apenas Title, Meta Description, H1 ou um bloco de FAQ), entregue diretamente as **Seções 2 e 3**.
-   - **Modo Completo:** Para URLs, páginas inteiras ou briefings, execute **FASE 1 → FASE 2** e as **5 seções da Estrutura de saída**.
-3. **Validação de insumo:** Se faltar material auditável (exceto no Modo Rápido ou pedido de checklist genérico), peça URL, arquivo ou copy atual em uma lista curta.
-4. **Fluxo combinado:** Se o usuário pedir **LP completa**, siga o protocolo de 2 turnos em [Convívio com a skill irmã](#convívio-com-a-skill-irmã).
-5. **Idioma:** Responder em **português do Brasil**, salvo pedido explícito de outro idioma.
+Exemplos: [examples.md](references/examples.md).
+
+## Idioma
+
+Português do Brasil, salvo pedido explícito.

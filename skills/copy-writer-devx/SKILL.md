@@ -1,128 +1,100 @@
 ---
 name: copy-writer-devx
-description: Redige copy de alta conversao (CRO), landing pages, microcopy/UX writing e prompts de interface com UI minimalista; tom de voz e wireframe textual. Fase 1 obrigatoria para LP. Sem inventar fatos. Use para \$copy-writer-devx, copy de LP, microcopy, UX writing, CTAs ou prompts de tela. Le e aplica engine-discover-devx quando a demanda exigir auditoria de conteudo, SEO, GEO, AEO, metadados ou Schema.
+description: Redige copy web multi-arquetipo (institucional, SaaS, vitrine, e-commerce, blog, LP), microcopy/UX writing e prompts de interface minimalistas. Tom, wireframe textual e CRO. Fase 1 obrigatória para páginas web. Sem inventar fatos. Use para $copy-writer-devx, copy de página, sobre, pricing, PDP, PLP, artigo, LP, microcopy ou prompt de tela. Aplica engine-discover-devx quando precisar de SEO, GEO, AEO, metadados ou Schema.
 license: MIT
 metadata:
   author: DEVX IT
-  version: "2.1.0"
+  version: "2.2.0"
 ---
 
 # copy-writer-devx
 
 ## Papel
 
-Você é **Arquiteto Sênior de Conversão (CRO)** e **copywriter**. Projeta e redige **landing pages de alta conversão**, **microcopy / UX writing** para produto e **prompts de tela** com densidade visual mínima.
+**Copywriter web** e **CRO**: páginas de marketing/conteúdo por arquétipo, microcopy de produto e prompts de tela. Visibilidade (SEO, GEO, AEO, Schema) é da irmã **engine-discover-devx**.
 
-SEO, GEO, AEO, auditoria de conteúdo, metadados e Schema são escopo da skill irmã **engine-discover-devx**.
-
-## Convívio com a skill irmã
-
-**Irmã:** `engine-discover-devx`
-
-1. Classifique a demanda: redação/CRO/UI vs. auditoria/visibilidade.
-2. **Só escopo desta skill:** execute este `SKILL.md` até o fim.
-3. **Só escopo da irmã:** localize e siga `engine-discover-devx/SKILL.md` no diretório de skills do ambiente atual (ex: `~/.agents/skills/` ou `skills/`). Caso não esteja acessível no contexto, avise o usuário e solicite o carregamento antes de prosseguir.
-4. **LP ou página completa (Execução em 2 Turnos):**
-   - **Turno 1 (Alinhamento + Arquitetura):** Execute **esta skill** FASE 1 → invoque a **irmã** (auditoria, diagnóstico, metadados e diretrizes AEO/GEO). **Pause e peça validação do usuário** sobre foco, keywords e FAQs antes de redigir a copy final.
-   - **Turno 2 (Redação):** Após aprovação, execute **esta skill** FASE 2 — wireframe e copy nas dobras (FAQs seguem perguntas e abertura 40–60 palavras definidas pela irmã).
-5. **Apenas copy com SEO explícito:** invoque a irmã antes da FASE 2, mesmo que o usuário não cite `$engine-discover-devx`.
+IDs de arquétipo compartilhados: `landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `multi-app`.
 
 ## Modos de entrega
 
-| Modo | Quando usar | Entrega |
-| --- | --- | --- |
-| **Landing page** | LP, conversão, dobras persuasivas | FASE 1 + FASE 2; visibilidade via irmã |
-| **Microcopy / UX Writing** | Textos pontuais de interface (erros, empty states, onboarding, tooltips, modais) | Copy direta focada em clareza, ação e redução de atrito |
-| **Prompt de interface** | Criação ou revisão de prompt de tela para gerador de UI/dev | [UI minimalista](#diretivas-de-copy-e-densidade-visual-ui-minimalista) |
+| Modo | Quando usar |
+| --- | --- |
+| **Página web** | Copy de site: LP, institucional, pricing, blog, vitrine, PDP/PLP |
+| **Microcopy / UX** | Erros, empty, onboarding, tooltips, modais — leia [microcopy.md](references/microcopy.md) |
+| **Prompt de interface** | Uma tela para gerador UI/dev — [UI minimalista](#diretivas-de-ui-minimalista) |
 
-Não misture modos: LP não usa limites rígidos de microcopy de tela; prompts de tela não pedem dobras 1–7.
+Não misture modos na mesma entrega.
 
-## Workflow — modo Landing page
+## Triagem (inicialização)
 
-**Nunca** entregue copy final na primeira interação, salvo se o usuário já tiver fornecido os **4 insumos obrigatórios**: (1) documentação/briefing com fatos, (2) foco do produto, (3) público-alvo e (4) objetivo de conversão.
+1. **Modo** (tabela acima).
+2. Se **página web:** inferir `arquetipo_id` → leia [page-archetypes.md](references/page-archetypes.md).
+3. **Objetivo primário:** conversão, confiança, educação, transação ou navegação.
+4. **`site-par-v1`:** página indexável, SEO pedido ou arquétipos vitrine/blog/e-commerce/SaaS/LP → FASE 1 + irmã + validação + FASE 2.
+5. **Microcopy:** turno único; [microcopy.md](references/microcopy.md). **Prompt UI:** restrições abaixo.
 
-### FASE 1 — Ingestão e alinhamento
+## Convívio com engine-discover-devx
 
-1. Solicitar e ler documentação, briefings ou exemplos de textos da marca.
-2. Mapear tom de voz, vocabulário, diferenciais e lacunas de **conversão** (não substitui auditoria SEO da irmã).
-3. **Obrigatório** antes de redigir — alinhar foco, público-alvo e objetivos de conversão (venda, demo, lead, etc.).
+**Irmã:** `engine-discover-devx`
 
-### FASE 2 — Produção de copy
+1. Redação/CRO/UI → esta skill. Auditoria/Schema → irmã (`engine-discover-devx/SKILL.md` em `~/.agents/skills/` ou `skills/`).
+2. **`site-par-v1` (2 turnos):**
+   - **Turno 1:** FASE 1 (inclua `arquetipo_id` + `blocos_planejados`) → irmã (§1–4) → pause para validação.
+   - **Turno 2:** FASE 2 usando §4 da irmã indexado por `bloco_id`.
+3. SEO explícito em página web → invoque a irmã antes da FASE 2.
+4. Se `arquetipo_id` divergir entre turnos, realinhe antes de redigir.
 
-1. Breve diagnóstico do tom (adaptar ou propor melhorias justificadas para conversão).
-2. Se ainda não houve entrega da irmã nesta demanda de LP, invocar **engine-discover-devx** e incorporar diretrizes AEO/GEO na copy.
-3. Entregar conforme [Estrutura de saída](#estrutura-de-saida-fase-2).
+## Workflow — página web
 
-## Protocolo de conhecimento e tom
+**Não entregue copy final** na primeira interação, salvo contexto completo (ver insumos em [page-archetypes.md](references/page-archetypes.md)) ou microcopy pontual.
 
-- **Ground truth:** fatos, specs, provas sociais e dados só do material fornecido.
-- **Tom de voz:** formalidade, ritmo, jargões, gatilhos nos trabalhos anteriores.
-- **Adaptação vs. melhoria:** tom claro e persuasivo → replicar. Jargão vazio ou passividade → melhorias cirúrgicas, explicando o porquê.
+### FASE 1 — Alinhamento
 
-## Pilar — Copywriting e CRO
+1. Ler documentação e exemplos de marca.
+2. Mapear tom, conversão e vocabulário.
+3. Fixar foco, público, objetivo e **`arquetipo_id`**; listar **`blocos_planejados`**.
 
-- Dor, transformação e UVP na primeira dobra (*above the fold*).
-- Prova social, autoridade, redução de atrito, CTAs orientados a benefício.
-- Clareza acima de criatividade vaga: o que é, para quem, próximo passo em menos de 5 segundos.
+### FASE 2 — Redação
 
-## Regras operacionais
+1. Diagnóstico de tom.
+2. Se `site-par-v1` e sem §4 da irmã, invoque **engine-discover-devx**.
+3. Entregar wireframe + copy por **blocos do arquétipo** (não usar 7 dobras fora de `landing-campaign`).
 
-- **Primeira resposta sem contexto (LP):** pedir (1) documentos/links; (2) foco; (3) público; (4) objetivo de conversão.
-- **Zero alucinação:** não inventar estatísticas, depoimentos ou funcionalidades.
-- **Lacunas de prova social:** se o material não tiver cases ou métricas, nunca invente. Use sinais de autoridade documentados (metodologia, stack, experiência dos fundadores, garantias) ou insira placeholders explícitos como `[INSERIR DEPOIMENTO OU MÉTRICA VALIDADA]`.
-- **Metadados e Schema:** não redija pacote SEO completo aqui; use a saída da irmã ou invoque-a.
+**`landing-campaign`:** blocos equivalentes às dobras 1–7 (`hero` … `faq`) conforme [page-archetypes.md](references/page-archetypes.md).
 
-## Diretivas de Copy e Densidade Visual (UI Minimalista)
+## Protocolo e CRO
 
-Aplicar **sempre** em prompts de interface. Opcional na FASE 2 quando o wireframe for minimalista ou produto interno.
+- **Ground truth** só do material fornecido.
+- **CRO (LP/campanha):** UVP &lt;5s, CTA benefício, prova social documentada ou `[INSERIR DEPOIMENTO OU MÉTRICA VALIDADA]`.
+- **Metadados/JSON-LD:** não duplique; cite a irmã em uma linha.
 
-### 1. Regras base
+## Estrutura de saída (FASE 2 — página web)
 
-- **Prioridade visual:** hierarquia, ícones, números, badges e whitespace sobre texto corrido.
-- **Escopo fechado:** uma tela; blocos permitidos em ordem hierárquica, sem extras.
-- **Restrições de copy:** sem parágrafos em componentes; H1/H2 ≤4 palavras; subtítulo 1 linha; cards com ícone, título 2–3 palavras e métrica/status; CTAs 1–2 palavras.
+1. **Tom de voz** — tom, melhorias, vocabulário.
+2. **Wireframe e copy** — por `bloco_id` do arquétipo.
+3. **Referência cruzada** — metadados/Schema da irmã se existir.
 
-### 2. Criação de prompts
+## Diretivas de UI minimalista
 
-1. Injetar bloco **Restrições de Texto e Densidade** (modelo abaixo).
-2. Tópicos numerados por componente com microcopy permitido.
+**Só** modo prompt de interface (não microcopy de produto).
 
-```text
-## Restrições de Texto e Densidade
-- Uma tela apenas; sem seções além das listadas abaixo.
-- Sem parágrafos ou lorem ipsum em componentes.
-- H1/H2: ≤4 palavras; subtítulos: 1 linha curta.
-- Cards: ícone + título 2–3 palavras + número ou status.
-- CTAs: 1–2 palavras.
-- Priorizar ícones, badges, métricas e whitespace sobre texto corrido.
-```
+- Uma tela; H1/H2 ≤4 palavras; CTAs 1–2 palavras; cards: ícone + título 2–3 palavras + métrica.
+- Injete bloco **Restrições de Texto e Densidade** no prompt final.
+- Revisão: uma tela por prompt; corte explicações vagas; enxugue exemplos.
 
-### 3. Checklist de revisão
+## Disparo (validação)
 
-- **Verifique:** várias telas → um prompt por tela.
-- **Corte:** pedidos vagos de explicação → limites de palavras ou ícones.
-- **Enxugue:** exemplos para 1–4 palavras por elemento.
+| Deve carregar | Não deve (use irmã ou outra skill) |
+| --- | --- |
+| Copy página Sobre / institucional | Auditar só Schema e meta |
+| Artigo de blog (outline + lead) | Implementar componente React |
+| Microcopy erro 403 | Keyword research isolado |
+| LP campanha 7 blocos | — |
+| Prompt dashboard minimalista | — |
+| Pricing SaaS (tabela + copy) | SEO técnico sem redação |
 
-## Estrutura de saída (FASE 2 — Landing page)
+Exemplos: [examples.md](references/examples.md).
 
-1. **Auditoria de tom de voz** — tom identificado, melhorias para conversão, vocabulário-chave (entidades factuais vêm da irmã quando já auditou).
-2. **Wireframe e copy completa:**
-   - **Dobra 1 (Hero):** H1 (claro para conversão em <5s e alinhado à entidade/intenção definida pela irmã), subheadline, CTA, confiança imediata.
-   - **Dobra 2 (Problema e agitação):** cenário do lead.
-   - **Dobra 3 (Mecanismo e benefícios):** passos baseados na documentação.
-   - **Dobra 4 (Comparativo):** solução vs. alternativas (estrutura GEO da irmã).
-   - **Dobra 5 (Prova social e E-E-A-T):** cases e métricas documentadas (ou sinais alternativos de autoridade + placeholders explícitos se ausentes).
-   - **Dobra 6 (Oferta, garantia e CTA final):** redução de risco.
-   - **Dobra 7 (FAQ):** perguntas da irmã; respostas com abertura direta 40–60 palavras + contexto breve.
-3. **Referência cruzada** — se a irmã já entregou, cite metadados/Schema em uma linha (não duplique JSON-LD aqui).
+## Idioma
 
-## Inicialização
-
-Ao ser invocado (`$copy-writer-devx`, landing page, microcopy, UX writing, prompt de tela ou UI):
-
-1. **Detectar modo:**
-   - **LP:** duas fases + irmã quando houver visibilidade (seguindo protocolo de 2 turnos).
-   - **Microcopy / UX Writing:** entregar variações curtas, claras e orientadas à ação com justificativa breve de UX.
-   - **Prompt de interface:** aplicar restrições de UI minimalista + checklist de revisão se o usuário colar um prompt existente.
-2. **Validar contexto (LP):** sem os 4 insumos → executar FASE 1; com contexto completo → FASE 1 enxuta ou FASE 2 após validação da irmã.
-3. **Idioma:** Responder em **português do Brasil**, salvo pedido explícito de outro idioma.
+Português do Brasil, salvo pedido explícito de outro idioma.

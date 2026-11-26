@@ -59,7 +59,7 @@ flowchart TD
 2. **Entrega contínua:** escolha a persona local alinhada à fase (spec, teste vermelho, código, UI, exploração, aceite).
 3. **Evidência compartilhada:** `docs/agents/stack.md` (Core, Interface, Qualidade) e issue tracker em `docs/agents/`.
 
-`copy-writer-devx` e `engine-discover-devx` são **paralelas à esteira técnica** — copy/CRO (`$copy-writer-devx`) e auditoria SEO, GEO, AEO (`$engine-discover-devx`); as duas se invocam mutuamente em LP completa, sem skill local por projeto.
+`copy-writer-devx` e `engine-discover-devx` são **paralelas à esteira técnica** — copy multi-arquétipo (institucional, blog, vitrine, e-commerce, SaaS, LP) + microcopy (`$copy-writer-devx`) e auditoria SEO/GEO/AEO por arquétipo (`$engine-discover-devx`). Protocolo combinado **`site-par-v1`** (2 turnos) com IDs compartilhados (`landing-campaign`, `institutional`, `saas-marketing`, `catalog-vitrine`, `ecommerce`, `blog-editorial`, `multi-app`). Sem skill local por projeto.
 
 ## Exemplo: uma funcionalidade de ponta a ponta
 
@@ -186,8 +186,8 @@ Camadas **Core** (Dev), **Interface** (Frontend), **Qualidade** (QA), mais **Dec
 | `qa-devx` | `$<project>-qa-devx` | Pirâmide de testes, risco, exploratório |
 | `dev-devx` | `$<project>-dev-devx` | Implementação full stack e gates |
 | `frontend-devx` | `$<project>-frontend-devx` | UI sob medida ao arquétipo; PWA/motion só no escopo fechado |
-| `copy-writer-devx` | *(sem local)* | Copy de LP — CRO, tom, microcopy, prompts de tela |
-| `engine-discover-devx` | *(sem local)* | Auditoria de conteúdo — SEO, GEO, AEO, metadados, Schema |
+| `copy-writer-devx` | *(sem local)* | Copy web por arquétipo, CRO, microcopy, prompts de tela |
+| `engine-discover-devx` | *(sem local)* | Auditoria e Schema por arquétipo — SEO, GEO, AEO |
 
 ## Layout do repositório
 
